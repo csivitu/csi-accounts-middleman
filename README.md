@@ -1,4 +1,4 @@
-[![csivit][csivitu-shield]][csivitu-url]
+![image](https://github.com/user-attachments/assets/d72972dd-eade-4575-9c1a-acf5d1cf99c0)[![csivit][csivitu-shield]][csivitu-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -8,7 +8,6 @@
   </a>
 
   <h3 align="center">CSI Accounts</h3>
-
   <p align="center">
     Repo for CSI IAM Service - Middleman
     <br />
