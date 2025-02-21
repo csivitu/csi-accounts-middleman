@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSI Accounts</title>
+    <script type="module">
+        import { processInputOutput } from "./build/main.js";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("processButton").addEventListener("click", processInputOutput);
+        });
+    </script>
 </head>
 <body>
-    
+    <h1>CSI OAuth Flow</h1>
+    <button id="processButton">Start OAuth Flow</button>
 </body>
 </html>

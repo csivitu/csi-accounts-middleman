@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,11 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.processInputOutput = void 0;
-var axios_1 = require("axios");
-require('dotenv').config();
-var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, function () {
+import axios, { AxiosError } from 'axios';
+import 'dotenv/config';
+export var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, function () {
     var code_challenge, client_id, scope, referer, url, responseUrl, body, response, error_1;
     var _a;
     return __generator(this, function (_b) {
@@ -77,7 +74,7 @@ var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, 
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, axios_1.default.post(responseUrl, body)];
+                return [4 /*yield*/, axios.post(responseUrl, body)];
             case 2:
                 response = _b.sent();
                 if (response.data && response.data.authorization_code) {
@@ -96,7 +93,7 @@ var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, 
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _b.sent();
-                if (error_1 instanceof axios_1.AxiosError) {
+                if (error_1 instanceof AxiosError) {
                     console.error("Axios error occurred:", error_1.message);
                     if (error_1.response) {
                         console.error("Response data:", error_1.response.data);
@@ -111,4 +108,3 @@ var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-exports.processInputOutput = processInputOutput;

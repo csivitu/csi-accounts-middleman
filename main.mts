@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
-require('dotenv').config();
-
+import 'dotenv/config'
 /** 
  * Function to process input from the client.
  * @params:
