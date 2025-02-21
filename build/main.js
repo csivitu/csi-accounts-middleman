@@ -36,54 +36,79 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.processInputOutput = void 0;
 var axios_1 = require("axios");
 require('dotenv').config();
 var processInputOutput = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var url, code_challenge, client_id, scope, referer, responseUrl, body, response, e_1;
+    var code_challenge, client_id, scope, referer, url, responseUrl, body, response, error_1;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                url = new URL(window.location.href);
-                code_challenge = url.searchParams.get('code_challenge');
-                client_id = url.searchParams.get('client_id');
-                scope = url.searchParams.getAll('scope');
-                referer = url.searchParams.get('origin');
-                if (!code_challenge || !client_id || !scope || !referer)
+                scope = [];
+                try {
+                    url = new URL(window.location.href);
+                    code_challenge = url.searchParams.get('code_challenge');
+                    client_id = url.searchParams.get('client_id');
+                    scope = url.searchParams.getAll('scope');
+                    referer = url.searchParams.get('origin');
+                    // Validate required parameters
+                    if (!code_challenge || !client_id || !scope.length || !referer) {
+                        console.error("Missing required parameters in the URL.");
+                        return [2 /*return*/];
+                    }
+                }
+                catch (error) {
+                    console.error("Error while parsing URL parameters:", error);
                     return [2 /*return*/];
-                responseUrl = process.env.AUTH_SERVICE || '';
-                body = {
-                    code_challenge: code_challenge,
-                    client_id: client_id,
-                    scope: scope
-                };
+                }
+                referer = decodeURIComponent(referer);
+                try {
+                    responseUrl = window.AUTH_SERVICE || '';
+                    if (!responseUrl) {
+                        throw new Error("AUTH_SERVICE URL is missing.");
+                    }
+                }
+                catch (error) {
+                    console.error("Error while retrieving AUTH_SERVICE URL:", error);
+                    return [2 /*return*/];
+                }
+                body = { code_challenge: code_challenge, client_id: client_id, scope: scope };
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, axios_1.default.post(responseUrl, body)];
             case 2:
                 response = _b.sent();
-                //response must contain authoriazation_code inside body param called authoriazation_code
-                if (response.data.authoriazation_code) {
-                    // the param url must be the url of the website that opened this page
-                    (_a = window.opener) === null || _a === void 0 ? void 0 : _a.postMessage({ "authoriazation_code": response.data.authoriazation_code }, referer);
+                if (response.data && response.data.authorization_code) {
+                    try {
+                        // Send message to the opener window
+                        (_a = window.opener) === null || _a === void 0 ? void 0 : _a.postMessage({ "authorization_code": response.data.authorization_code }, referer);
+                    }
+                    catch (error) {
+                        console.error("Error while posting message to the opener:", error);
+                    }
                 }
                 else {
-                    throw new Error("Invalid response type from service");
+                    throw new Error("Invalid response type from service: missing 'authorization_code'.");
                 }
-                console.log("Success, Response: ".concat(response));
-                return [2 /*return*/];
+                console.log("Success! Response:", response.data);
+                return [3 /*break*/, 4];
             case 3:
-                e_1 = _b.sent();
-                if (e_1 instanceof axios_1.AxiosError) {
-                    console.error("Axios based error occured.");
-                    return [2 /*return*/];
+                error_1 = _b.sent();
+                if (error_1 instanceof axios_1.AxiosError) {
+                    console.error("Axios error occurred:", error_1.message);
+                    if (error_1.response) {
+                        console.error("Response data:", error_1.response.data);
+                        console.error("Response status:", error_1.response.status);
+                    }
                 }
                 else {
-                    console.error("Error: ".concat(e_1));
+                    console.error("Unexpected error occurred:", error_1);
                 }
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
     });
 }); };
+exports.processInputOutput = processInputOutput;
