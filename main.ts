@@ -1,5 +1,13 @@
 import axios, { AxiosError } from 'axios';
-import 'dotenv/config'
+declare global {
+    interface Window {
+        AUTH_SERVICE: string;
+    }
+}
+
+const AUTH_SERVICE = window.AUTH_SERVICE;
+console.log("AUTH_SERVICE:", AUTH_SERVICE);
+
 /** 
  * Function to process input from the client.
  * @params:
@@ -34,6 +42,7 @@ export const processInputOutput = async () => {
             console.error("Missing required parameters in the URL.");
             return;
         }
+        console.error("success")
     } catch (error) {
         console.error("Error while parsing URL parameters:", error);
         return;

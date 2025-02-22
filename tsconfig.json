@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
+      "target": "ESNext", 
       "module": "ESNext",
-      "moduleResolution": "Node",
-      "target": "ES6",
-      "outDir": "build",
-      "rootDir": ".",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "rootDir": "./",
+      "strict": true,
+      "moduleDetection": "force",
+      "allowJs": true,
       "esModuleInterop": true
     }
   }

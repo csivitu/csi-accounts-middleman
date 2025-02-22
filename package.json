@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Middleman Service for CSI-Accounts",
   "main": "main.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  
   "repository": {
     "type": "git",
     "url": "csi-accounts-middleman"
@@ -20,5 +18,11 @@
   "devDependencies": {
     "@types/node": "^22.13.4"
   },
-  "type": "module"
+  
+  "type": "module",
+  "scripts": {
+    "build": "tsc && find build -name '*.js' -exec sh -c 'mv \"$1\" \"${1%.js}.mjs\"' _ {} \\;"
+  }
+  
+  
 }

@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSI Accounts</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        window.AUTH_SERVICE = "http://localhost:3000"; // Fetch from backend
+    </script>
     <script type="module">
-        import { processInputOutput } from "./build/main.js";
+        
+        import { processInputOutput } from "/build/main.mjs";
 
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("processButton").addEventListener("click", processInputOutput);
