@@ -9,16 +9,74 @@
         window.AUTH_SERVICE = "http://localhost:3000"; // Fetch from backend
     </script>
     <script type="module">
-        
         import { processInputOutput } from "/build/main.mjs";
 
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("processButton").addEventListener("click", processInputOutput);
         });
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            border: solid black ;
+        }
+        .logo {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #b5cff9;
+            
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #357ae8;
+        }
+        hr{
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>CSI OAuth Flow</h1>
-    <button id="processButton">Start OAuth Flow</button>
+    <div class="container">
+        <hr>
+        <h2>CSI-VIT wants additional access to your existing account</h2>
+        <button id="processButton" class="btn">   
+            Click here to continue
+        </button>
+    </div>
 </body>
 </html>

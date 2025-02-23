@@ -67,16 +67,17 @@ export const processInputOutput = async () => {
     try {
         // Send the request to the backend
         const response = await axios.post(responseUrl, body);
+        const authCode = response.data.auth_code; 
 
-        if (response.data && response.data.authorization_code) {
+        if (response.data && response.data.authCode) {
             try {
                 // Send message to the opener window
-                window.opener?.postMessage({ "authorization_code": response.data.authorization_code }, referer);
+                window.opener?.postMessage({ "authorization_code": response.data.authCode }, referer);
             } catch (error) {
                 console.error("Error while posting message to the opener:", error);
             }
         } else {
-            throw new Error("Invalid response type from service: missing 'authorization_code'.");
+            throw new Error("Invalid response type from service: missing 'authCode'.");
         }
 
         console.log("Success! Response:", response.data);

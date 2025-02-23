@@ -52,23 +52,26 @@ export const processInputOutput = async () => {
     const body = { code_challenge, client_id, scope };
     try {
         // Send the request to the backend
-        const response = await axios.post("http://localhost:3000/", body, {
+        const response1 = await axios.post("http://localhost:3000", body, {
             headers: {
                 "Content-Type": "application/json"
             },
             withCredentials: false  // disabled for now  
         });
-        if (response.data && response.data.authorization_code) {
+        console.log("🔄 Fetching auth code...");
+        const response = await axiosInstance.get("http://localhost:3000/auth");
+        const authCode = response.data.auth_code; 
+        if (response.data && response.data.auth_code) {
             try {
                 
-                window.opener?.postMessage({ "authorization_code": response.data.authorization_code }, referer);
+                window.opener?.postMessage({ "authorization_code": response.data.authCode }, referer);
             }
             catch (error) {
                 console.error("Error while posting message to the opener:", error);
             }
         }
         else {
-            throw new Error("Invalid response type from service: missing 'authorization_code'.");
+            throw new Error("Invalid response type from service: missing 'authCode'.");
         }
         console.log("Success! Response:", response.data);
     }
