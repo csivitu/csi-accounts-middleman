@@ -67,12 +67,12 @@ export const processInputOutput = async () => {
     try {
         // Send the request to the backend
         const response = await axios.post(responseUrl, body);
-        const authCode = response.data.auth_code; 
+        const authCode = response.data.authorization_code; 
 
-        if (response.data && response.data.authCode) {
+        if (response.data && response.data.authorization_code) {
             try {
                 // Send message to the opener window
-                window.opener?.postMessage({ "authorization_code": response.data.authCode }, referer);
+                window.opener?.postMessage({ "authorization_code": response.data.authorization_code }, referer);
             } catch (error) {
                 console.error("Error while posting message to the opener:", error);
             }

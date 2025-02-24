@@ -52,19 +52,19 @@ export const processInputOutput = async () => {
     const body = { code_challenge, client_id, scope };
     try {
         // Send the request to the backend
-        const response1 = await axios.post("http://localhost:3000", body, {
+        const response = await axios.post("http://localhost:3000/auth", body, {
             headers: {
                 "Content-Type": "application/json"
             },
             withCredentials: false  // disabled for now  
         });
         console.log("🔄 Fetching auth code...");
-        const response = await axiosInstance.get("http://localhost:3000/auth");
-        const authCode = response.data.auth_code; 
-        if (response.data && response.data.auth_code) {
+        /*const response1 = await axiosInstance.get("http://localhost:3000/auth");*/
+        const authCode = response.data.authorization_code; 
+        if (response.data && response.data.authorization_code) {
             try {
                 
-                window.opener?.postMessage({ "authorization_code": response.data.authCode }, referer);
+                window.opener?.postMessage({ "authorization_code": authCode }, referer);
             }
             catch (error) {
                 console.error("Error while posting message to the opener:", error);
